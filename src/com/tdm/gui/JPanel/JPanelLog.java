@@ -1,5 +1,8 @@
 package com.tdm.gui.JPanel;
 
+import com.tdm.util.Config;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JEditorPane;
 
 /**
@@ -7,10 +10,12 @@ import javax.swing.JEditorPane;
  * @author tetradotoxina
  */
 public class JPanelLog extends javax.swing.JPanel {
-    public static final String INFO = "";
-    public static final String WARNING = "";
-    public static final String SUCCESS = "";
-    public static final String ERROR = "";
+    public static final String INFO_LOG = "#333";
+    public static final String WARNING_LOG = "#286090";
+    public static final String SUCCESS_LOG = "#ec971f";
+    public static final String ERROR_LOG = "#c9302c";
+    
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY hh:mm:ss");
     
     private JEditorPane editorPane;
     
@@ -30,37 +35,35 @@ public class JPanelLog extends javax.swing.JPanel {
 
         jToolBar1 = new javax.swing.JToolBar();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        chInfo = new javax.swing.JCheckBox();
+        chWarning = new javax.swing.JCheckBox();
+        chSuccess = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
 
         setLayout(new java.awt.BorderLayout());
 
+        jToolBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.add(filler1);
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Info");
-        jCheckBox1.setFocusable(false);
-        jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jCheckBox1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jCheckBox1);
+        chInfo.setText("Info");
+        chInfo.setFocusable(false);
+        chInfo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        chInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(chInfo);
 
-        jCheckBox2.setSelected(true);
-        jCheckBox2.setText("Warning");
-        jCheckBox2.setFocusable(false);
-        jCheckBox2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jCheckBox2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jCheckBox2);
+        chWarning.setText("Warning");
+        chWarning.setFocusable(false);
+        chWarning.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        chWarning.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(chWarning);
 
-        jCheckBox3.setSelected(true);
-        jCheckBox3.setText("Success");
-        jCheckBox3.setFocusable(false);
-        jCheckBox3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jCheckBox3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jCheckBox3);
+        chSuccess.setText("Success");
+        chSuccess.setFocusable(false);
+        chSuccess.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        chSuccess.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(chSuccess);
 
         add(jToolBar1, java.awt.BorderLayout.PAGE_START);
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -68,10 +71,10 @@ public class JPanelLog extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox chInfo;
+    private javax.swing.JCheckBox chSuccess;
+    private javax.swing.JCheckBox chWarning;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
@@ -81,5 +84,69 @@ public class JPanelLog extends javax.swing.JPanel {
         editorPane.setContentType("text/html;charset=UTF-8");
         editorPane.setEditable(false);
         jScrollPane1.setViewportView(editorPane);
+        
+        
+        loadConfig();
+        loadLang();
+    }
+    
+    public void showLog(String msg,String type){
+        
+        String date = sdf.format(new Date());
+        String prefix;
+        
+        switch(type){
+            case INFO_LOG:
+                if(chInfo.isSelected()==false){
+                    return;
+                }
+                prefix = Config.getLang("panel.log.info");
+                break;
+            case WARNING_LOG:
+                if(chWarning.isSelected()==false){
+                    return;
+                }
+                prefix = Config.getLang("panel.log.warning");
+                break;                   
+            case SUCCESS_LOG:
+                if(chSuccess.isSelected()==false){
+                    return;
+                }
+                prefix = Config.getLang("panel.log.success");
+                break;
+            case ERROR_LOG:
+                prefix = "Error";
+                break;
+            default:
+                prefix="";
+        }
+        
+        String temp = editorPane.getText();
+        String newmsg = "<span style=\"color:"+type+";\"><b>["+prefix+" "+date+"]</b> "+msg+"</span><br>";
+        editorPane.setText(temp+newmsg);
+    }
+    
+    private void loadConfig(){
+        String info = Config.getConfig("config.tdm.log.info");
+        String warning = Config.getConfig("config.tdm.log.warning");
+        String success = Config.getConfig("config.tdm.log.success");
+        
+        if(info.length() ==1 && Integer.parseInt(info) ==1 ){
+            chInfo.setSelected(true);
+        }
+        
+        if(warning.length() ==1 && Integer.parseInt(warning) ==1 ){
+            chWarning.setSelected(true);
+        }
+        
+        if(success.length() ==1 && Integer.parseInt(success) ==1 ){
+            chSuccess.setSelected(true);
+        }
+    }
+    
+    private void loadLang(){
+        chInfo.setText(Config.getLang("panel.log.info"));
+        chWarning.setText(Config.getLang("panel.log.warning"));
+        chSuccess.setText(Config.getLang("panel.log.success"));
     }
 }

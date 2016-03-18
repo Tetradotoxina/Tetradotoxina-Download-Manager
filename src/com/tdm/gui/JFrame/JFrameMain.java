@@ -1,6 +1,23 @@
 package com.tdm.gui.JFrame;
 
+import com.tdm.gui.JDialog.JDialogAbout;
 import com.tdm.gui.JPanel.JPanelLog;
+import com.tdm.util.Config;
+import com.tdm.util.Data;
+import com.tdm.util.Method;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JMenu;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -8,9 +25,10 @@ import com.tdm.gui.JPanel.JPanelLog;
  */
 public class JFrameMain extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFrameMain
-     */
+    private JPanelLog log;
+    private JDialog dlgAbout;
+    private JFrameSearch frmSearch;
+
     public JFrameMain() {
         initComponents();
         init();
@@ -28,12 +46,33 @@ public class JFrameMain extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
         jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        jToolBar2 = new javax.swing.JToolBar();
+        btnAddUrl = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnClear = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        btnPlay = new javax.swing.JButton();
+        btnPause = new javax.swing.JButton();
+        btnStop = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        btnSearch = new javax.swing.JButton();
+        btnSettings = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnExit = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        menuFile = new javax.swing.JMenu();
+        itemExit = new javax.swing.JMenuItem();
+        menuEdit = new javax.swing.JMenu();
+        menuView = new javax.swing.JMenu();
+        chItemLog = new javax.swing.JCheckBoxMenuItem();
+        menuHelp = new javax.swing.JMenu();
+        itemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tetradotoxina Download Manager");
@@ -47,6 +86,70 @@ public class JFrameMain extends javax.swing.JFrame {
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_END);
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jToolBar2.setFloatable(false);
+        jToolBar2.setRollover(true);
+
+        btnAddUrl.setText("Add Url's");
+        btnAddUrl.setFocusable(false);
+        btnAddUrl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAddUrl.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnAddUrl);
+        jToolBar2.add(jSeparator1);
+
+        btnClear.setText("Clear");
+        btnClear.setFocusable(false);
+        btnClear.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClear.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnClear);
+        jToolBar2.add(jSeparator4);
+
+        btnPlay.setText("Play");
+        btnPlay.setFocusable(false);
+        btnPlay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPlay.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnPlay);
+
+        btnPause.setText("Pause");
+        btnPause.setFocusable(false);
+        btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnPause);
+
+        btnStop.setText("Stop");
+        btnStop.setFocusable(false);
+        btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnStop);
+        jToolBar2.add(jSeparator2);
+
+        btnSearch.setText("Search");
+        btnSearch.setFocusable(false);
+        btnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnSearch);
+
+        btnSettings.setText("Settings");
+        btnSettings.setFocusable(false);
+        btnSettings.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSettings.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnSettings);
+        jToolBar2.add(jSeparator3);
+
+        btnExit.setText("Exit");
+        btnExit.setFocusable(false);
+        btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnExit);
+
+        jPanel1.add(jToolBar2, java.awt.BorderLayout.PAGE_START);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,20 +166,73 @@ public class JFrameMain extends javax.swing.JFrame {
 
         jSplitPane2.setRightComponent(jScrollPane1);
 
-        jSplitPane1.setTopComponent(jSplitPane2);
+        jScrollPane3.setViewportView(jTree1);
+
+        jSplitPane2.setLeftComponent(jScrollPane3);
+
+        jPanel1.add(jSplitPane2, java.awt.BorderLayout.CENTER);
+
+        jSplitPane1.setTopComponent(jPanel1);
 
         getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        menuFile.setText("File");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        itemExit.setText("Exit");
+        menuFile.add(itemExit);
+
+        jMenuBar1.add(menuFile);
+
+        menuEdit.setText("Edit");
+        jMenuBar1.add(menuEdit);
+
+        menuView.setText("View");
+
+        chItemLog.setSelected(true);
+        chItemLog.setText("Log");
+        chItemLog.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chItemLogItemStateChanged(evt);
+            }
+        });
+        menuView.add(chItemLog);
+
+        jMenuBar1.add(menuView);
+
+        menuHelp.setText("Help");
+
+        itemAbout.setText("About");
+        itemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAboutActionPerformed(evt);
+            }
+        });
+        menuHelp.add(itemAbout);
+
+        jMenuBar1.add(menuHelp);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void chItemLogItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chItemLogItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            jSplitPane1.setRightComponent(log);
+        } else {
+            jSplitPane1.remove(log);
+        }
+    }//GEN-LAST:event_chItemLogItemStateChanged
+
+    private void itemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAboutActionPerformed
+        dlgAbout.setLocationRelativeTo(null);
+        dlgAbout.setVisible(true);
+    }//GEN-LAST:event_itemAboutActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        frmSearch.setLocationRelativeTo(null);
+        frmSearch.setVisible(true);
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,25 +270,143 @@ public class JFrameMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddUrl;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnPause;
+    private javax.swing.JButton btnPlay;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSettings;
+    private javax.swing.JButton btnStop;
+    private javax.swing.JCheckBoxMenuItem chItemLog;
+    private javax.swing.JMenuItem itemAbout;
+    private javax.swing.JMenuItem itemExit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JTree jTree1;
+    private javax.swing.JMenu menuEdit;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuView;
     // End of variables declaration//GEN-END:variables
 
-    private void init(){
-
-    }
-
-    public void addLog(JPanelLog log) {
-        
+    private void init() {
+        log = new JPanelLog();
         jSplitPane1.setRightComponent(log);
+
+        dlgAbout = new JDialogAbout(this, true);
+        frmSearch = new JFrameSearch();
+        
+        loadIcons();
+        loadStyles();
+        loadLang();
     }
 
+    public void loadLang() {
+        menuFile.setText(Config.getLang("frm.main.menu.file"));
+        itemExit.setText(Config.getLang("frm.main.item.exit"));
+
+        menuView.setText(Config.getLang("frm.main.menu.view"));
+        chItemLog.setText(Config.getLang("frm.main.item.log"));
+
+        menuHelp.setText(Config.getLang("frm.main.menu.help"));
+        itemAbout.setText(Config.getLang("frm.main.item.about"));
+    }
+
+    public JPanelLog getLog() {
+        return log;
+    }
+    
+    private void loadIcons(){
+        btnAddUrl.setIcon(Method.getIcon("32x32/add_url.png"));
+        btnClear.setIcon(Method.getIcon("32x32/clear.png"));
+        
+        btnPlay.setIcon(Method.getIcon("32x32/play_download.png"));
+        btnPause.setIcon(Method.getIcon("32x32/pause_download.png"));
+        btnStop.setIcon(Method.getIcon("32x32/stop_download.png"));
+        
+        btnSearch.setIcon(Method.getIcon("32x32/search_internet.png"));
+        btnSettings.setIcon(Method.getIcon("32x32/settings.png"));
+        
+        btnExit.setIcon(Method.getIcon("32x32/exit.png"));
+    }
+
+    private void loadStyles() {
+
+        ButtonGroup group = new ButtonGroup();
+        JMenu menu = new JMenu(Config.getLang("frm.main.menu.styles"));
+        String lookAndFeel = Config.getConfig("config.tdm.styles");
+        String description;
+        String value;
+
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            description = info.getName();
+            value = info.getClassName();
+            Data data = new Data(description, value);
+
+            RadioButtonMenuItem item = new RadioButtonMenuItem(data);
+
+            group.add(item);
+            menu.add(item);
+
+            if (lookAndFeel.equalsIgnoreCase(description)) {
+                item.setSelected(true);
+            }
+        }
+
+        menuView.add(menu);
+
+    }
+
+    public class RadioButtonMenuItem extends JRadioButtonMenuItem implements Serializable, ItemListener {
+
+        private final Data data;
+
+        public RadioButtonMenuItem(Data data) {
+            this.data = data;
+            setText(data.getDescription());
+            addItemListener(RadioButtonMenuItem.this);
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                if (RadioButtonMenuItem.this.isSelected()) {
+                    try {
+                        String lookAndFeel = data.getValue();
+                        Config.setConfig("config.tdm.styles", data.getDescription());
+                        UIManager.setLookAndFeel(lookAndFeel);
+                        SwingUtilities.updateComponentTreeUI(JFrameMain.this);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InstantiationException ex) {
+                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException ex) {
+                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedLookAndFeelException ex) {
+                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public String toString() {
+            return data.getDescription();
+        }
+    }
 
 }

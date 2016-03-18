@@ -2,7 +2,7 @@ package com.tdm.controller;
 
 import com.tdm.gui.JFrame.JFrameMain;
 import com.tdm.gui.JPanel.JPanelLog;
-import java.util.Properties;
+import com.tdm.util.Config;
 
 /**
  *
@@ -11,14 +11,14 @@ import java.util.Properties;
 public class MainController {
     private static JFrameMain frmMain;
     public static JPanelLog log;
-    private static Properties config;
-    private static Properties lang;
     
     public MainController(){
+        Config.loadConfig();
+        Config.loadLang();
+        
         frmMain = new JFrameMain();
-        log = new JPanelLog();
-        frmMain.addLog(log);
-        frmMain.pack();
+        log = frmMain.getLog();    
+        
     }
     
     
