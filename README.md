@@ -1,10 +1,8 @@
 # Tetradotoxina-Download-Manager
-Este proyecto ayuda a comprender como se gestiona las escargas ademas de poder descargar galerias de imagenes.
-
-visitanos en http://tetradotoxina.com
-
------------------------------------------------------------------------------------------------------------------
-
-This project helps to understand how escargas addition to downloading image galleries is managed.
+This project helps to understand how downloads and you can download image galleries thanks to regular expressions is managed.
 
 Visit us at http://tetradotoxina.com
+-----------------------------------------------------------------------------------------------------------------
+Este proyecto ayuda a comprender como se gestiona las descargas ademas de poder descargar galerias de imagenes gracias a las expresiones regulares.
+
+visitanos en http://tetradotoxina.com
