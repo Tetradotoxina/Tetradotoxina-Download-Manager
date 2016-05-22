@@ -1,19 +1,23 @@
 package com.tdm.gui.JFrame;
 
 import com.tdm.gui.JDialog.JDialogAbout;
-import com.tdm.gui.JPanel.JPanelLog;
-import com.tdm.util.Config;
+import com.tdm.gui.JDialog.JDialogAddUrl;
+import com.tdm.gui.JPanel.Log;
+import com.tdm.config.Config;
+import com.tdm.controller.DownloadController;
+import com.tdm.gui.JDialog.JDialogSettings;
+import com.tdm.model.DownloadModel;
 import com.tdm.util.Data;
 import com.tdm.util.Method;
+import com.tdm.util.TrayBar;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -25,9 +29,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class JFrameMain extends javax.swing.JFrame {
 
-    private JPanelLog log;
-    private JDialog dlgAbout;
+    private Log log;
+    private JDialogAbout dlgAbout;
+    private JDialogSettings dlgSettings;
+    private JDialogAddUrl dlgAddUrl;
     private JFrameSearch frmSearch;
+    private TrayBar trayBar;
+
+    private DownloadController downloadController;
 
     public JFrameMain() {
         initComponents();
@@ -43,132 +52,340 @@ public class JFrameMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        pViewDownload = new javax.swing.JMenuItem();
+        pItemOpenDirectory = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        mItemOptions = new javax.swing.JMenu();
+        pItemRename = new javax.swing.JMenuItem();
+        pItemDirectory = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        pItemPause = new javax.swing.JMenuItem();
+        pItemPlay = new javax.swing.JMenuItem();
+        pItemStop = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        pItemClear = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
-        jLabel1 = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
+        lblInfoDownload = new javax.swing.JLabel();
+        jSeparator17 = new javax.swing.JToolBar.Separator();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jSeparator16 = new javax.swing.JToolBar.Separator();
+        btnWeb = new javax.swing.JButton();
+        btnFPage = new javax.swing.JButton();
+        btnFDevelopers = new javax.swing.JButton();
+        btnFGroup = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jToolBar2 = new javax.swing.JToolBar();
-        btnAddUrl = new javax.swing.JButton();
+        btnItemAddUrls = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        btnClear = new javax.swing.JButton();
+        btnItemClear = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
-        btnPlay = new javax.swing.JButton();
-        btnPause = new javax.swing.JButton();
-        btnStop = new javax.swing.JButton();
+        btnItemPlay = new javax.swing.JButton();
+        btnItemPause = new javax.swing.JButton();
+        btnItemStop = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        btnSearch = new javax.swing.JButton();
-        btnSettings = new javax.swing.JButton();
+        btnItemSearch = new javax.swing.JButton();
+        jSeparator10 = new javax.swing.JToolBar.Separator();
+        btnItemSettings = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        btnExit = new javax.swing.JButton();
+        btnItemDonate = new javax.swing.JButton();
+        jSeparator15 = new javax.swing.JToolBar.Separator();
+        btnItemExit = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        treeShortcuts = new javax.swing.JTree();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jToolBar3 = new javax.swing.JToolBar();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
+        itemAddUrls = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
         itemExit = new javax.swing.JMenuItem();
-        menuEdit = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
+        chItemToolBar = new javax.swing.JCheckBoxMenuItem();
+        itemShortcuts = new javax.swing.JCheckBoxMenuItem();
         chItemLog = new javax.swing.JCheckBoxMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        menuLookAndFeel = new javax.swing.JMenu();
+        menuTools = new javax.swing.JMenu();
+        itemClear = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        itemPlay = new javax.swing.JMenuItem();
+        itemPause = new javax.swing.JMenuItem();
+        itemStop = new javax.swing.JMenuItem();
+        menuOptions = new javax.swing.JMenu();
+        itemSearch = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        itemLanguages = new javax.swing.JMenu();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        itemSettings = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
+        itemUpdate = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         itemAbout = new javax.swing.JMenuItem();
+
+        pViewDownload.setText("view Download");
+        jPopupMenu1.add(pViewDownload);
+
+        pItemOpenDirectory.setText("Open Directory");
+        jPopupMenu1.add(pItemOpenDirectory);
+        jPopupMenu1.add(jSeparator12);
+
+        mItemOptions.setText("Change");
+
+        pItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        pItemRename.setText("Rename");
+        mItemOptions.add(pItemRename);
+
+        pItemDirectory.setText("Directory");
+        mItemOptions.add(pItemDirectory);
+
+        jPopupMenu1.add(mItemOptions);
+        jPopupMenu1.add(jSeparator13);
+
+        pItemPause.setText("Pause");
+        jPopupMenu1.add(pItemPause);
+
+        pItemPlay.setText("Play");
+        jPopupMenu1.add(pItemPlay);
+
+        pItemStop.setText("Stop");
+        jPopupMenu1.add(pItemStop);
+        jPopupMenu1.add(jSeparator14);
+
+        pItemClear.setText("Clear");
+        jPopupMenu1.add(pItemClear);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tetradotoxina Download Manager");
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
+        jToolBar1.add(filler2);
 
-        jLabel1.setText("Info");
-        jToolBar1.add(jLabel1);
+        lblInfoDownload.setText("Downloads 0");
+        jToolBar1.add(lblInfoDownload);
+        jToolBar1.add(jSeparator17);
+        jToolBar1.add(filler1);
+        jToolBar1.add(jSeparator16);
+
+        btnWeb.setText("Web");
+        btnWeb.setFocusable(false);
+        btnWeb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnWeb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWebActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnWeb);
+
+        btnFPage.setText("FO");
+        btnFPage.setFocusable(false);
+        btnFPage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFPage.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFPageActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFPage);
+
+        btnFDevelopers.setText("FD");
+        btnFDevelopers.setFocusable(false);
+        btnFDevelopers.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFDevelopers.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFDevelopers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFDevelopersActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFDevelopers);
+
+        btnFGroup.setText("FG");
+        btnFGroup.setFocusable(false);
+        btnFGroup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFGroup.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFGroupActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFGroup);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_END);
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setResizeWeight(0.9);
+        jSplitPane1.setOneTouchExpandable(true);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
 
-        btnAddUrl.setText("Add Url's");
-        btnAddUrl.setFocusable(false);
-        btnAddUrl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAddUrl.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(btnAddUrl);
-        jToolBar2.add(jSeparator1);
-
-        btnClear.setText("Clear");
-        btnClear.setFocusable(false);
-        btnClear.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnClear.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(btnClear);
-        jToolBar2.add(jSeparator4);
-
-        btnPlay.setText("Play");
-        btnPlay.setFocusable(false);
-        btnPlay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPlay.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(btnPlay);
-
-        btnPause.setText("Pause");
-        btnPause.setFocusable(false);
-        btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(btnPause);
-
-        btnStop.setText("Stop");
-        btnStop.setFocusable(false);
-        btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(btnStop);
-        jToolBar2.add(jSeparator2);
-
-        btnSearch.setText("Search");
-        btnSearch.setFocusable(false);
-        btnSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnItemAddUrls.setText("Add Url's");
+        btnItemAddUrls.setFocusable(false);
+        btnItemAddUrls.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemAddUrls.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemAddUrls.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemAddUrls.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnItemAddUrls.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
+                btnItemAddUrlsActionPerformed(evt);
             }
         });
-        jToolBar2.add(btnSearch);
+        jToolBar2.add(btnItemAddUrls);
+        jToolBar2.add(jSeparator1);
 
-        btnSettings.setText("Settings");
-        btnSettings.setFocusable(false);
-        btnSettings.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSettings.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(btnSettings);
+        btnItemClear.setText("Clear");
+        btnItemClear.setFocusable(false);
+        btnItemClear.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemClear.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemClear.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemClear.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnItemClear);
+        jToolBar2.add(jSeparator4);
+
+        btnItemPlay.setText("Play");
+        btnItemPlay.setFocusable(false);
+        btnItemPlay.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemPlay.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemPlay.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemPlay.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnItemPlay);
+
+        btnItemPause.setText("Pause");
+        btnItemPause.setFocusable(false);
+        btnItemPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemPause.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemPause.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnItemPause);
+
+        btnItemStop.setText("Stop");
+        btnItemStop.setFocusable(false);
+        btnItemStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemStop.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemStop.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btnItemStop);
+        jToolBar2.add(jSeparator2);
+
+        btnItemSearch.setText("Search");
+        btnItemSearch.setFocusable(false);
+        btnItemSearch.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemSearch.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemSearch.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemSearch.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnItemSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnItemSearchActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnItemSearch);
+        jToolBar2.add(jSeparator10);
+
+        btnItemSettings.setText("Settings");
+        btnItemSettings.setFocusable(false);
+        btnItemSettings.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemSettings.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemSettings.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemSettings.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnItemSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnItemSettingsActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnItemSettings);
         jToolBar2.add(jSeparator3);
 
-        btnExit.setText("Exit");
-        btnExit.setFocusable(false);
-        btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(btnExit);
+        btnItemDonate.setText("Donate");
+        btnItemDonate.setFocusable(false);
+        btnItemDonate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemDonate.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemDonate.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemDonate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnItemDonate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnItemDonateActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnItemDonate);
+        jToolBar2.add(jSeparator15);
+
+        btnItemExit.setText("Exit");
+        btnItemExit.setFocusable(false);
+        btnItemExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnItemExit.setMinimumSize(new java.awt.Dimension(95, 61));
+        btnItemExit.setPreferredSize(new java.awt.Dimension(95, 61));
+        btnItemExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnItemExitActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(btnItemExit);
 
         jPanel1.add(jToolBar2, java.awt.BorderLayout.PAGE_START);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jSplitPane2.setResizeWeight(0.1);
+        jSplitPane2.setOneTouchExpandable(true);
 
-        jSplitPane2.setRightComponent(jScrollPane1);
-
-        jScrollPane3.setViewportView(jTree1);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("All Categories");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Estate");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Download");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Pause");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Resume");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Stop");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Types");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Galery");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Documents");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Compressed");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Music");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Videos");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Programs");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeShortcuts.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane3.setViewportView(treeShortcuts);
 
         jSplitPane2.setLeftComponent(jScrollPane3);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Gantz.iso", "3.4 GB", "Resume", "10%", "100 MB", "1 Hour 55 Min", "21-03-2016 21:12:00", null, "/home/tetradotoxina/downloads/Gantz"}
+            },
+            new String [] {
+                "Name", "Size", "State", "Progress", "Download", "Time", "Date Begin", "Date finishied", "directory"
+            }
+        ));
+        jTable1.setComponentPopupMenu(jPopupMenu1);
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jToolBar3.setRollover(true);
+        jPanel2.add(jToolBar3, java.awt.BorderLayout.PAGE_END);
+
+        jSplitPane2.setRightComponent(jPanel2);
 
         jPanel1.add(jSplitPane2, java.awt.BorderLayout.CENTER);
 
@@ -178,17 +395,43 @@ public class JFrameMain extends javax.swing.JFrame {
 
         menuFile.setText("File");
 
+        itemAddUrls.setText("Add Url's");
+        itemAddUrls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAddUrlsActionPerformed(evt);
+            }
+        });
+        menuFile.add(itemAddUrls);
+        menuFile.add(jSeparator11);
+
         itemExit.setText("Exit");
+        itemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemExitActionPerformed(evt);
+            }
+        });
         menuFile.add(itemExit);
 
         jMenuBar1.add(menuFile);
 
-        menuEdit.setText("Edit");
-        jMenuBar1.add(menuEdit);
-
         menuView.setText("View");
 
-        chItemLog.setSelected(true);
+        chItemToolBar.setText("Toolbar");
+        chItemToolBar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chItemToolBarItemStateChanged(evt);
+            }
+        });
+        menuView.add(chItemToolBar);
+
+        itemShortcuts.setText("Shortcuts");
+        itemShortcuts.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                itemShortcutsItemStateChanged(evt);
+            }
+        });
+        menuView.add(itemShortcuts);
+
         chItemLog.setText("Log");
         chItemLog.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -196,10 +439,60 @@ public class JFrameMain extends javax.swing.JFrame {
             }
         });
         menuView.add(chItemLog);
+        menuView.add(jSeparator6);
+
+        menuLookAndFeel.setText("Styles");
+        menuView.add(menuLookAndFeel);
 
         jMenuBar1.add(menuView);
 
+        menuTools.setText("Tools");
+
+        itemClear.setText("Clear");
+        menuTools.add(itemClear);
+        menuTools.add(jSeparator5);
+
+        itemPlay.setText("Play");
+        menuTools.add(itemPlay);
+
+        itemPause.setText("Pause");
+        menuTools.add(itemPause);
+
+        itemStop.setText("Stop");
+        menuTools.add(itemStop);
+
+        jMenuBar1.add(menuTools);
+
+        menuOptions.setText("Options");
+
+        itemSearch.setText("Search");
+        itemSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSearchActionPerformed(evt);
+            }
+        });
+        menuOptions.add(itemSearch);
+        menuOptions.add(jSeparator7);
+
+        itemLanguages.setText("Languages");
+        menuOptions.add(itemLanguages);
+        menuOptions.add(jSeparator8);
+
+        itemSettings.setText("Settings");
+        itemSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSettingsActionPerformed(evt);
+            }
+        });
+        menuOptions.add(itemSettings);
+
+        jMenuBar1.add(menuOptions);
+
         menuHelp.setText("Help");
+
+        itemUpdate.setText("Update");
+        menuHelp.add(itemUpdate);
+        menuHelp.add(jSeparator9);
 
         itemAbout.setText("About");
         itemAbout.addActionListener(new java.awt.event.ActionListener() {
@@ -219,20 +512,91 @@ public class JFrameMain extends javax.swing.JFrame {
     private void chItemLogItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chItemLogItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             jSplitPane1.setRightComponent(log);
+            jSplitPane1.setDividerSize(10);
         } else {
             jSplitPane1.remove(log);
+            jSplitPane1.setDividerSize(0);
         }
+        log.itemStateChanged(evt, "config.tdm.log", "frm.main.item.log", "Log");
     }//GEN-LAST:event_chItemLogItemStateChanged
 
     private void itemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAboutActionPerformed
+        dlgAbout.setSize(600, 400);
         dlgAbout.setLocationRelativeTo(null);
         dlgAbout.setVisible(true);
     }//GEN-LAST:event_itemAboutActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        frmSearch.setLocationRelativeTo(null);
-        frmSearch.setVisible(true);
-    }//GEN-LAST:event_btnSearchActionPerformed
+    private void btnItemSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemSearchActionPerformed
+        showSearch();
+    }//GEN-LAST:event_btnItemSearchActionPerformed
+
+    private void itemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemExitActionPerformed
+        close();
+    }//GEN-LAST:event_itemExitActionPerformed
+
+    private void btnItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemExitActionPerformed
+        close();
+    }//GEN-LAST:event_btnItemExitActionPerformed
+
+    private void chItemToolBarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chItemToolBarItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            jToolBar2.setVisible(true);
+        } else {
+            jToolBar2.setVisible(false);
+        }
+        log.itemStateChanged(evt, "config.tdm.toolbar", "frm.main.item.toolbar", "Toolbar");
+    }//GEN-LAST:event_chItemToolBarItemStateChanged
+
+    private void itemSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSearchActionPerformed
+        showSearch();
+    }//GEN-LAST:event_itemSearchActionPerformed
+
+    private void btnItemAddUrlsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemAddUrlsActionPerformed
+        showAddUrl();
+    }//GEN-LAST:event_btnItemAddUrlsActionPerformed
+
+    private void itemShortcutsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_itemShortcutsItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            jSplitPane2.setLeftComponent(jScrollPane3);
+            jSplitPane2.setDividerSize(10);
+        } else {
+            jSplitPane2.remove(jScrollPane3);
+             jSplitPane2.setDividerSize(0);
+        }
+        log.itemStateChanged(evt, "config.tdm.shortcuts", "frm.main.item.shortcuts", "Shortcuts");
+    }//GEN-LAST:event_itemShortcutsItemStateChanged
+
+    private void btnItemSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemSettingsActionPerformed
+        showSettings();
+    }//GEN-LAST:event_btnItemSettingsActionPerformed
+
+    private void itemSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSettingsActionPerformed
+        showSettings();
+    }//GEN-LAST:event_itemSettingsActionPerformed
+
+    private void itemAddUrlsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddUrlsActionPerformed
+        showAddUrl();
+    }//GEN-LAST:event_itemAddUrlsActionPerformed
+
+    private void btnFPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFPageActionPerformed
+        Method.showURL(Config.getInfo("info.product.facebook.fanpage.official"));
+    }//GEN-LAST:event_btnFPageActionPerformed
+
+    private void btnWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWebActionPerformed
+        Method.showURL(Config.getInfo("info.product.web"));
+    }//GEN-LAST:event_btnWebActionPerformed
+
+    private void btnFDevelopersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFDevelopersActionPerformed
+        Method.showURL(Config.getInfo("info.product.facebook.fanpage.developers"));
+    }//GEN-LAST:event_btnFDevelopersActionPerformed
+
+    private void btnFGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFGroupActionPerformed
+        Method.showURL(Config.getInfo("info.product.facebook.group"));
+    }//GEN-LAST:event_btnFGroupActionPerformed
+
+    private void btnItemDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItemDonateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnItemDonateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,84 +634,191 @@ public class JFrameMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddUrl;
-    private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnPause;
-    private javax.swing.JButton btnPlay;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnSettings;
-    private javax.swing.JButton btnStop;
+    private javax.swing.JButton btnFDevelopers;
+    private javax.swing.JButton btnFGroup;
+    private javax.swing.JButton btnFPage;
+    private javax.swing.JButton btnItemAddUrls;
+    private javax.swing.JButton btnItemClear;
+    private javax.swing.JButton btnItemDonate;
+    private javax.swing.JButton btnItemExit;
+    private javax.swing.JButton btnItemPause;
+    private javax.swing.JButton btnItemPlay;
+    private javax.swing.JButton btnItemSearch;
+    private javax.swing.JButton btnItemSettings;
+    private javax.swing.JButton btnItemStop;
+    private javax.swing.JButton btnWeb;
     private javax.swing.JCheckBoxMenuItem chItemLog;
+    private javax.swing.JCheckBoxMenuItem chItemToolBar;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JMenuItem itemAbout;
+    private javax.swing.JMenuItem itemAddUrls;
+    private javax.swing.JMenuItem itemClear;
     private javax.swing.JMenuItem itemExit;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu itemLanguages;
+    private javax.swing.JMenuItem itemPause;
+    private javax.swing.JMenuItem itemPlay;
+    private javax.swing.JMenuItem itemSearch;
+    private javax.swing.JMenuItem itemSettings;
+    private javax.swing.JCheckBoxMenuItem itemShortcuts;
+    private javax.swing.JMenuItem itemStop;
+    private javax.swing.JMenuItem itemUpdate;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JToolBar.Separator jSeparator15;
+    private javax.swing.JToolBar.Separator jSeparator16;
+    private javax.swing.JToolBar.Separator jSeparator17;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JTree jTree1;
-    private javax.swing.JMenu menuEdit;
+    private javax.swing.JToolBar jToolBar3;
+    private javax.swing.JLabel lblInfoDownload;
+    private javax.swing.JMenu mItemOptions;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuLookAndFeel;
+    private javax.swing.JMenu menuOptions;
+    private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
+    private javax.swing.JMenuItem pItemClear;
+    private javax.swing.JMenuItem pItemDirectory;
+    private javax.swing.JMenuItem pItemOpenDirectory;
+    private javax.swing.JMenuItem pItemPause;
+    private javax.swing.JMenuItem pItemPlay;
+    private javax.swing.JMenuItem pItemRename;
+    private javax.swing.JMenuItem pItemStop;
+    private javax.swing.JMenuItem pViewDownload;
+    private javax.swing.JTree treeShortcuts;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
-        log = new JPanelLog();
-        jSplitPane1.setRightComponent(log);
+        log = new Log();
+        jSplitPane1.setRightComponent(null);
+        jToolBar2.setVisible(false);
+        jSplitPane2.remove(jScrollPane3);
 
         dlgAbout = new JDialogAbout(this, true);
+        dlgSettings = new JDialogSettings(this, true);
+        dlgAddUrl = new JDialogAddUrl(this, true);
         frmSearch = new JFrameSearch();
-        
+
+        trayBar = new TrayBar();
+        downloadController = new DownloadController();
+
         loadIcons();
-        loadStyles();
+        loadConfig();
+        loadMenuLookAndFeel();
+        loadMenuLanguages();
         loadLang();
+        
+        pack();
     }
 
     public void loadLang() {
-        menuFile.setText(Config.getLang("frm.main.menu.file"));
-        itemExit.setText(Config.getLang("frm.main.item.exit"));
 
-        menuView.setText(Config.getLang("frm.main.menu.view"));
-        chItemLog.setText(Config.getLang("frm.main.item.log"));
+        setTitle(Method.getLang("info.product", "Tetradotoxina Download Manager"));
 
-        menuHelp.setText(Config.getLang("frm.main.menu.help"));
-        itemAbout.setText(Config.getLang("frm.main.item.about"));
+        Method.loadLang(menuFile, "frm.main.menu.file");
+        Method.loadLang(itemAddUrls, "frm.main.item.addurl");
+        Method.loadLang(btnItemAddUrls, "frm.main.item.addurl");
+        Method.loadLang(itemExit, "frm.main.item.exit");
+        Method.loadLang(btnItemExit, "frm.main.item.exit");
+        Method.loadLang(menuTools, "frm.main.menu.tools");
+        Method.loadLang(itemClear, "frm.main.item.clear");
+        Method.loadLang(btnItemClear, "frm.main.item.clear");
+        Method.loadLang(itemPlay, "frm.main.item.play");
+        Method.loadLang(btnItemPlay, "frm.main.item.play");
+        Method.loadLang(itemPause, "frm.main.item.pause");
+        Method.loadLang(btnItemPause, "frm.main.item.pause");
+        Method.loadLang(itemStop, "frm.main.item.stop");
+        Method.loadLang(btnItemStop, "frm.main.item.stop");
+        Method.loadLang(itemSearch, "frm.main.item.search");
+        Method.loadLang(btnItemSearch, "frm.main.item.search");
+        Method.loadLang(itemLanguages, "frm.main.item.lang");
+        Method.loadLang(menuView, "frm.main.menu.view");
+        Method.loadLang(chItemToolBar, "frm.main.item.toolbar");
+        Method.loadLang(itemShortcuts, "frm.main.item.shortcuts");
+        Method.loadLang(chItemLog, "frm.main.item.log");
+        Method.loadLang(menuLookAndFeel, "frm.main.menu.lookandfeel");
+        Method.loadLang(menuOptions, "frm.main.menu.options");
+        Method.loadLang(menuHelp, "frm.main.menu.help");
+        Method.loadLang(itemUpdate, "frm.main.item.update");
+        Method.loadLang(itemAbout, "frm.main.item.about");
+        Method.loadLang(itemSettings, "frm.main.item.settings");
+        Method.loadLang(btnItemSettings, "frm.main.item.settings");
+        Method.loadLang(btnItemDonate, "frm.main.item.donate");
+        
+        Method.loadLang(btnWeb, "dlg.about.visit.web", true);
+        Method.loadLang(btnFPage, "dlg.about.visit.facebook.official", true);
+        Method.loadLang(btnFDevelopers, "dlg.about.visit.facebook.developers", true);
+        Method.loadLang(btnFGroup, "dlg.about.visit.facebook.group", true);
     }
 
-    public JPanelLog getLog() {
+    public void log(String msg, String type) {
+        log.addLog(msg, type);
+    }
+
+    public Log getLog() {
         return log;
     }
-    
-    private void loadIcons(){
-        btnAddUrl.setIcon(Method.getIcon("32x32/add_url.png"));
-        btnClear.setIcon(Method.getIcon("32x32/clear.png"));
+
+    public void loadIcons() {
+        setIconImage(Method.getIcon("128x128/tdm.png").getImage());
         
-        btnPlay.setIcon(Method.getIcon("32x32/play_download.png"));
-        btnPause.setIcon(Method.getIcon("32x32/pause_download.png"));
-        btnStop.setIcon(Method.getIcon("32x32/stop_download.png"));
+        Method.loadIcon(itemAddUrls, "16x16/add_url.png");
+        Method.loadIcon(itemExit, "16x16/exit.png");
+        Method.loadIcon(itemPlay, "16x16/play_download.png");
+        Method.loadIcon(itemPause, "16x16/pause_download.png");
+        Method.loadIcon(itemStop, "16x16/stop_download.png");
+        Method.loadIcon(itemSearch, "16x16/search_internet.png");
+        Method.loadIcon(itemLanguages, "16x16/language.png");
+        Method.loadIcon(itemSettings, "16x16/settings.png");
+        Method.loadIcon(itemUpdate, "16x16/system_software_update.png");
+        Method.loadIcon(itemAbout, "16x16/information.png");
+
+        Method.loadIcon(btnItemAddUrls, "32x32/add_url.png");
+        Method.loadIcon(btnItemClear, "32x32/clear.png");
+
+        Method.loadIcon(btnItemPlay, "32x32/play_download.png");
+        Method.loadIcon(btnItemPause, "32x32/pause_download.png");
+        Method.loadIcon(btnItemStop, "32x32/stop_download.png");
+
+        Method.loadIcon(btnItemSearch, "32x32/search_internet.png");
+        Method.loadIcon(btnItemSettings, "32x32/settings.png");
         
-        btnSearch.setIcon(Method.getIcon("32x32/search_internet.png"));
-        btnSettings.setIcon(Method.getIcon("32x32/settings.png"));
+        Method.loadIcon(btnItemDonate, "32x32/donate.png");
+        Method.loadIcon(btnItemExit, "32x32/exit.png");
         
-        btnExit.setIcon(Method.getIcon("32x32/exit.png"));
+        Method.loadIcon(btnWeb, "16x16/internet_web_browser.png", false);
+        Method.loadIcon(btnFPage, "16x16/facebook.png",false);
+        Method.loadIcon(btnFGroup,"16x16/facebook_group.png",false);
+        Method.loadIcon(btnFDevelopers,"16x16/facebook_developers.png",false);
     }
 
-    private void loadStyles() {
+    private void loadMenuLookAndFeel() {
 
         ButtonGroup group = new ButtonGroup();
-        JMenu menu = new JMenu(Config.getLang("frm.main.menu.styles"));
-        String lookAndFeel = Config.getConfig("config.tdm.styles");
+        String lookAndFeel = Method.getConfig("config.tdm.lookandfeel.name", "Nimbus");
         String description;
         String value;
 
@@ -359,14 +830,111 @@ public class JFrameMain extends javax.swing.JFrame {
             RadioButtonMenuItem item = new RadioButtonMenuItem(data);
 
             group.add(item);
-            menu.add(item);
+            menuLookAndFeel.add(item);
 
             if (lookAndFeel.equalsIgnoreCase(description)) {
                 item.setSelected(true);
             }
         }
 
-        menuView.add(menu);
+    }
+
+    private void close() {
+
+        System.exit(0);
+    }
+
+    private void showSearch() {
+        if (frmSearch.isVisible()==false) {
+            frmSearch.loadHost();
+            frmSearch.loadFilter();
+            frmSearch.pack();
+            frmSearch.setSize(700,600);
+            frmSearch.setLocationRelativeTo(null);
+            frmSearch.setVisible(true);
+        }else{
+            frmSearch.setVisible(true);
+        }
+    }
+
+    private void showAddUrl() {
+        dlgAddUrl.setSize(600, 400);
+        dlgAddUrl.setLocationRelativeTo(null);
+        dlgAddUrl.setVisible(true);
+
+        List<DownloadModel> model = dlgAddUrl.getListDownload();
+        if (model != null) {
+            downloadController.prepareDownload(model);
+        }
+    }
+
+    private void loadMenuLanguages() {
+        File folder = new File(Method.getDirectory() + "/lang");
+        File[] listOfFiles = folder.listFiles();
+        ButtonGroup group = new ButtonGroup();
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                String file = listOfFile.getName();
+                String description = file.substring(0, file.lastIndexOf(".properties"));
+                if (file.endsWith(".properties")) {
+                    RadioBtnItemLang item = new RadioBtnItemLang(new Data(description, file));
+                    group.add(item);
+                    itemLanguages.add(item);
+
+                    if (file.equalsIgnoreCase(Method.getConfig("config.tdm.lang", "en-EN"))) {
+                        item.setSelected(true);
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    private void loadConfig() {
+        String toolbar = Method.getConfig("config.tdm.toolbar", "1");
+        if (toolbar.length() == 1 && Integer.parseInt(toolbar) == 1) {
+            chItemToolBar.setSelected(true);
+        }
+        String shortcusts = Method.getConfig("config.tdm.shortcuts", "1");
+        if (shortcusts.length() == 1 && Integer.parseInt(shortcusts) == 1) {
+            itemShortcuts.setSelected(true);
+        }
+        String logConfig = Method.getConfig("config.tdm.log", "1");
+        if (logConfig.length() == 1 && Integer.parseInt(logConfig) == 1) {
+            chItemLog.setSelected(true);
+        }
+
+        String trayBarConfig = Method.getConfig("config.tdm.traybar", "1");
+        if (trayBarConfig.length() == 1 && Integer.parseInt(trayBarConfig) == 1) {
+            trayBar.addSearchActionListener(itemSearch.getActionListeners());
+            trayBar.addSettingsActionListener(itemSettings.getActionListeners());
+            trayBar.addAboutAcctionListener(itemAbout.getActionListeners());
+            trayBar.setVisible(true);
+        }
+    }
+
+    private void showSettings() {
+        dlgSettings.setLocationRelativeTo(null);
+        dlgSettings.setVisible(true);
+    }
+
+    public void logItemStateChanged(ItemEvent evt, String config, String lang, String def) {
+        log.itemStateChanged(evt, config, lang, def);
+    }
+
+    public void showLang() {
+        this.loadLang();
+        log.loadLang();
+        dlgAbout.loadLang();
+        trayBar.loadLang();
+    }
+
+    public void showLookAndFeel() {
+        dlgAbout.loadLookAndFeel();
+        dlgAddUrl.loadLookAndFeel();
+        dlgSettings.loadLookAndFeel();
+        frmSearch.loadLookAndFeel();
 
     }
 
@@ -384,22 +952,30 @@ public class JFrameMain extends javax.swing.JFrame {
         public void itemStateChanged(ItemEvent e) {
             if (e.getStateChange() == ItemEvent.SELECTED) {
 
-                if (RadioButtonMenuItem.this.isSelected()) {
-                    try {
-                        String lookAndFeel = data.getValue();
-                        Config.setConfig("config.tdm.styles", data.getDescription());
-                        UIManager.setLookAndFeel(lookAndFeel);
-                        SwingUtilities.updateComponentTreeUI(JFrameMain.this);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (InstantiationException ex) {
-                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (UnsupportedLookAndFeelException ex) {
-                        Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        JFrameMain.this.setVisible(false);
+                        try {
+                            String lookAndFeel = data.getValue();
+                            Config.setConfig("config.tdm.lookandfeel.name", data.getDescription());
+                            Config.setConfig("config.tdm.lookandfeel.class", data.getValue());
+                            UIManager.setLookAndFeel(lookAndFeel);
+                            SwingUtilities.updateComponentTreeUI(JFrameMain.this);
+                            showLookAndFeel();
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InstantiationException ex) {
+                            Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IllegalAccessException ex) {
+                            Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (UnsupportedLookAndFeelException ex) {
+                            Logger.getLogger(RadioButtonMenuItem.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        JFrameMain.this.setVisible(true);
                     }
-                }
+                });
+
             }
         }
 
@@ -409,4 +985,33 @@ public class JFrameMain extends javax.swing.JFrame {
         }
     }
 
+    public class RadioBtnItemLang extends JRadioButtonMenuItem implements Serializable, ItemListener {
+
+        private final Data data;
+
+        public RadioBtnItemLang(Data data) {
+            this.data = data;
+            setText(data.getDescription());
+            addItemListener(RadioBtnItemLang.this);
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Config.setConfig("config.tdm.lang", data.getValue());
+                    }
+                });
+
+            }
+
+        }
+
+        @Override
+        public String toString() {
+            return data.getDescription();
+        }
+    }
 }

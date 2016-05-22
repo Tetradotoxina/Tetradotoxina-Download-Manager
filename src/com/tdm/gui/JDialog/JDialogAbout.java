@@ -1,9 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tdm.gui.JDialog;
+
+import com.tdm.config.Config;
+import com.tdm.util.Method;
 
 /**
  *
@@ -11,12 +9,10 @@ package com.tdm.gui.JDialog;
  */
 public class JDialogAbout extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JDialogAbout
-     */
     public JDialogAbout(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        init();
     }
 
     /**
@@ -28,21 +24,185 @@ public class JDialogAbout extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        lblBanner = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnDonate = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        btnWeb = new javax.swing.JButton();
+        btnFPage = new javax.swing.JButton();
+        btnFDevelopers = new javax.swing.JButton();
+        btnFGroup = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        btnUpdate = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        btnOk = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        editorInfo = new javax.swing.JEditorPane();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        epCollaborators = new javax.swing.JEditorPane();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("About");
+        setResizable(false);
+
+        lblBanner.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBanner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tdm/icons/others/banner.png"))); // NOI18N
+        lblBanner.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 20, 1));
+        lblBanner.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblBanner.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBannerMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblBanner, java.awt.BorderLayout.PAGE_START);
+
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+
+        btnDonate.setText("Donate");
+        btnDonate.setFocusable(false);
+        btnDonate.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnDonate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDonateActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnDonate);
+        jToolBar1.add(jSeparator1);
+
+        btnWeb.setText("Web");
+        btnWeb.setFocusable(false);
+        btnWeb.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnWeb.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWebActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnWeb);
+
+        btnFPage.setText("FO");
+        btnFPage.setFocusable(false);
+        btnFPage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFPage.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFPageActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFPage);
+
+        btnFDevelopers.setText("FD");
+        btnFDevelopers.setFocusable(false);
+        btnFDevelopers.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFDevelopers.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFDevelopers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFDevelopersActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFDevelopers);
+
+        btnFGroup.setText("FG");
+        btnFGroup.setFocusable(false);
+        btnFGroup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFGroup.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFGroupActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnFGroup);
+        jToolBar1.add(jSeparator2);
+
+        btnUpdate.setText("Check Update");
+        btnUpdate.setFocusable(false);
+        btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnUpdate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnUpdate);
+        jToolBar1.add(filler1);
+
+        btnOk.setText("Ok");
+        btnOk.setFocusable(false);
+        btnOk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOk.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnOk);
+
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_END);
+
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        editorInfo.setEditable(false);
+        editorInfo.setContentType("text/html"); // NOI18N
+        jScrollPane1.setViewportView(editorInfo);
+
+        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Info", jPanel1);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        epCollaborators.setEditable(false);
+        epCollaborators.setContentType("text/html"); // NOI18N
+        jScrollPane2.setViewportView(epCollaborators);
+
+        jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Collaborators", jPanel2);
+
+        getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void lblBannerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBannerMouseClicked
+        if (evt.getClickCount() == 1) {
+            Method.showURL(Config.getInfo("info.product.web"));
+        }
+    }//GEN-LAST:event_lblBannerMouseClicked
+
+    private void btnWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWebActionPerformed
+        Method.showURL(Config.getInfo("info.product.web"));
+    }//GEN-LAST:event_btnWebActionPerformed
+
+    private void btnDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDonateActionPerformed
+        Method.showURL(Config.getInfo("info.product.donate"));
+    }//GEN-LAST:event_btnDonateActionPerformed
+
+    private void btnFPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFPageActionPerformed
+        Method.showURL(Config.getInfo("info.product.facebook.fanpage.official"));
+    }//GEN-LAST:event_btnFPageActionPerformed
+
+    private void btnFGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFGroupActionPerformed
+        Method.showURL(Config.getInfo("info.product.facebook.group"));
+    }//GEN-LAST:event_btnFGroupActionPerformed
+
+    private void btnFDevelopersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFDevelopersActionPerformed
+        Method.showURL(Config.getInfo("info.product.facebook.fanpage.developers"));
+    }//GEN-LAST:event_btnFDevelopersActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        Method.showURL(Config.getInfo("info.product.web.update"));
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -87,5 +247,96 @@ public class JDialogAbout extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDonate;
+    private javax.swing.JButton btnFDevelopers;
+    private javax.swing.JButton btnFGroup;
+    private javax.swing.JButton btnFPage;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnWeb;
+    private javax.swing.JEditorPane editorInfo;
+    private javax.swing.JEditorPane epCollaborators;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblBanner;
     // End of variables declaration//GEN-END:variables
+
+    private void init() {
+        loadLang();
+        loadInfo();
+        loadCollaborators();
+        loadIcons();
+        loadLookAndFeel();
+    }
+
+    private void loadInfo() {
+        String info = "";
+        info += "<b>" + Method.getLang("dlg.about.product","Product") + ":</b> " + Config.getInfo("info.product") + "<br>";
+        info += "<b>" + Config.getLang("dlg.about.product.version") + ":</b> " + Config.getInfo("info.product.version") + "<br>";
+        info += "<b>" + Config.getLang("dlg.about.product.license") + ":</b> " + Config.getInfo("info.product.license") + "<br>";
+        info += "<b>" + Config.getLang("dlg.about.product.update") + ":</b> " + Config.getInfo("info.product.date.update") + "<br>";
+        info += "<b>" + Config.getLang("dlg.about.system") + ":</b> " + Method.getOS() + " " + Method.getOSArch() + " " + Method.getOSVersion() + "<br>";
+
+        info += "<b>" + Config.getLang("dlg.about.author") + ":</b> " + Config.getInfo("info.product.author") + "<br>";
+        info += "<b>" + Config.getLang("dlg.about.email") + ":</b> " + Config.getInfo("info.product.author.email") + "<br>";
+
+        editorInfo.setText(info);
+    }
+
+    public void loadLang() {
+
+        setTitle(Method.getLang("dlg.about.title", "About"));
+        Method.loadLang(btnDonate, "dlg.about.btn.donate", true);
+        Method.loadLang(lblBanner, "dlg.about.visit.web", true);
+        Method.loadLang(btnWeb, "dlg.about.visit.web", true);
+        Method.loadLang(btnFPage, "dlg.about.visit.facebook.official", true);
+        Method.loadLang(btnFDevelopers, "dlg.about.visit.facebook.developers", true);
+        Method.loadLang(btnFGroup, "dlg.about.visit.facebook.group", true);
+        Method.loadLang(btnUpdate, "dlg.about.check.update", true);
+        Method.loadLang(btnUpdate, "dlg.about.btn.ok");
+        
+        jTabbedPane1.setTitleAt(0,Method.loadLang("dlg.about.info","Information"));
+        jTabbedPane1.setTitleAt(1,Method.loadLang("dlg.about.collaborators","Collaborators"));
+    }
+
+    public void loadIcons() {
+        Method.loadIcon(btnDonate, "24x24/donate.png", false);
+        Method.loadIcon(btnWeb, "24x24/internet.png", false);
+        Method.loadIcon(btnFPage, "24x24/facebook.png",false);
+        Method.loadIcon(btnFGroup,"24x24/facebook_group.png",false);
+        Method.loadIcon(btnFDevelopers,"24x24/facebook_developers.png",false);
+        Method.loadIcon(btnUpdate,"24x24/system_software_update.png",false);
+    }
+
+    public void loadLookAndFeel() {
+        Method.changeLookAndFeel(this);
+    }
+
+    private void loadCollaborators() {
+        int count=0;
+        
+        String role;
+        String author;
+        String email;
+        String country;
+        
+        String info="";
+        while(Config.getInfo("info.collaborator.author"+count)!=null){
+            role = Config.getInfo("info.collaborator.role"+count);
+            author = Config.getInfo("info.collaborator.author"+count);
+            email = Config.getInfo("info.collaborator.email"+count);
+            country = Config.getInfo("info.collaborator.country"+count);
+            
+            info += "<spam>"+role+" <br>"+author+"<br>"+email+"<br>"+country+"</spam><br><br>";
+            count++;            
+        }
+        
+    }
 }

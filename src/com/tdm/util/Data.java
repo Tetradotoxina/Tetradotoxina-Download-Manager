@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tdm.util;
 
 import java.io.Serializable;
@@ -12,7 +7,7 @@ import java.io.Serializable;
  * @author tetradotoxina
  */
 public class Data implements Serializable{
-    private int Id;
+    private int id;
     private String value;
     private String description;
     
@@ -27,16 +22,17 @@ public class Data implements Serializable{
         this.description = description;
     }
 
-    public Data(int Id, String descripcion,String value) {
-        this.Id = Id;
+    public Data(int id, String descripcion,String value) {
+        this.id = id;
         this.value = value;
         this.description = descripcion;
     }
     
     public Data(int Id, String descripcion) {
-        this.Id = Id;
+        this.id = Id;
         this.description = descripcion;
     }
+
 
     public String getValue() {
         return value;
@@ -55,11 +51,11 @@ public class Data implements Serializable{
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(int Id) {
-        this.Id = Id;
+    public void setId(int id) {
+        this.id = id;
     }
     
     @Override

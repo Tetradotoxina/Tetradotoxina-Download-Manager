@@ -1,8 +1,8 @@
 package com.tdm.controller;
 
 import com.tdm.gui.JFrame.JFrameMain;
-import com.tdm.gui.JPanel.JPanelLog;
-import com.tdm.util.Config;
+import com.tdm.config.Config;
+import java.awt.event.ItemEvent;
 
 /**
  *
@@ -10,44 +10,39 @@ import com.tdm.util.Config;
  */
 public class MainController {
     private static JFrameMain frmMain;
-    public static JPanelLog log;
     
     public MainController(){
+        Config.loadInfo();
         Config.loadConfig();
         Config.loadLang();
         
-        frmMain = new JFrameMain();
-        log = frmMain.getLog();    
-        
+        frmMain = new JFrameMain();   
     }
     
     
     public static JFrameMain getFrmMain(){
         return frmMain;
     }
-
-    public void init() {
-       
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-      
+    
+    public static void log(String msg,String type){        
+        frmMain.log(msg,type);
+    }
+    
+    public static void logItemStateChanged(ItemEvent evt,String config,String lang,String def) {
+        frmMain.logItemStateChanged(evt,config,lang,def);
+    }
+   
+    
+    public void start(){
+        frmMain.setSize(900,600);
+        frmMain.setLocationRelativeTo(null);
+        //frmMain.setVisible(true);
+    }
+    
+    public static void init() {                    
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFrameMain().setVisible(true);
+            public void run() {                
+                new MainController().start();
             }
         });
     
